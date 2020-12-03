@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Just-Run.iml" filepath="$PROJECT_DIR$/.idea/Just-Run.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Just_Run.iml" filepath="$PROJECT_DIR$/.idea/modules/Just_Run.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Just_Run.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Just_Run.app.iml" />
     </modules>
   </component>
 </project>
