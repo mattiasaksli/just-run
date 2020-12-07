@@ -1,6 +1,7 @@
 package com.example.justrun
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,6 +32,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        startService(Intent(this, ForegroundService::class.java))
+        //never stop this service the world will end
+        //stopService(Intent(this, BleService::class.java))
+
     }
 
     /**
