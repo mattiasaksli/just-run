@@ -1,4 +1,4 @@
-package com.example.justrun
+package com.example.justrun.utils
 
 import android.app.Notification
 import android.app.NotificationChannel

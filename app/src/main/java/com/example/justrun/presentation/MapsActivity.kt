@@ -1,13 +1,17 @@
-package com.example.justrun
+package com.example.justrun.presentation
 
-import android.Manifest
+import  android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.justrun.utils.ForegroundService
+import com.example.justrun.R
+import com.example.justrun.presentation.viewmodels.WorkoutDataViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
@@ -17,13 +21,17 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     val LOCATION_REQUEST_CODE = 101
     var locationPermissionGranted = false
     lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
+    private val workoutDataViewModel: WorkoutDataViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +41,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        //maybe should be moved to applicationModule
         startService(Intent(this, ForegroundService::class.java))
         //never stop this service the world will end
         //stopService(Intent(this, BleService::class.java))
