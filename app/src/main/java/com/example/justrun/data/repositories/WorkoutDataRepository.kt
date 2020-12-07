@@ -9,6 +9,7 @@ class WorkoutDataRepository @Inject constructor(
     private val workoutDataDao: WorkoutDataDao) {
 
     fun getWorkoutData(): WorkoutData {
+        //pole kindel kas see praegu töötab
        return workoutDataDao.getWorkoutData().value!!
     }
 

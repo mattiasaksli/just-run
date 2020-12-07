@@ -43,8 +43,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         //maybe should be moved to applicationModule
         startService(Intent(this, ForegroundService::class.java))
+
         //never stop this service the world will end
         //stopService(Intent(this, BleService::class.java))
+
+        //u can get workoutdata with
+        //workoutDataViewModel.workoutData
+        //if it works properly
 
     }
 
