@@ -5,6 +5,9 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
@@ -229,25 +232,25 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1059" y="453" key="FileChooserDialogImpl/2560.0.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1607032247185" />
-    <state width="1491" height="213" key="GridCell.Tab.0.bottom" timestamp="1607347124004">
+    <state width="1491" height="171" key="GridCell.Tab.0.bottom" timestamp="1607534747450">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="213" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1607347124004" />
-    <state width="1491" height="213" key="GridCell.Tab.0.center" timestamp="1607347124003">
+    <state width="1491" height="171" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1607534747450" />
+    <state width="1491" height="171" key="GridCell.Tab.0.center" timestamp="1607534747450">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="213" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1607347124003" />
-    <state width="1491" height="213" key="GridCell.Tab.0.left" timestamp="1607347124003">
+    <state width="1491" height="171" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1607534747450" />
+    <state width="1491" height="171" key="GridCell.Tab.0.left" timestamp="1607534747450">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="213" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1607347124003" />
-    <state width="1491" height="213" key="GridCell.Tab.0.right" timestamp="1607347124004">
+    <state width="1491" height="171" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1607534747450" />
+    <state width="1491" height="171" key="GridCell.Tab.0.right" timestamp="1607534747450">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state width="1491" height="213" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1607347124004" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1607347757541">
+    <state width="1491" height="171" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1607534747450" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1607534725221">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1607347757541" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1607534725221" />
   </component>
 </project>
