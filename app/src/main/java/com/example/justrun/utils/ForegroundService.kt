@@ -31,7 +31,7 @@ class ForegroundService : Service() {
             applicationContext, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        g
+
         val notification: Notification = Notification.Builder(this, channelId)
             .setContentTitle("Just Run")
             .setLargeIcon(
