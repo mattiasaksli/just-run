@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import com.example.justrun.activities.MapsActivity
 
 class ForegroundService : Service() {
 
@@ -23,11 +24,17 @@ class ForegroundService : Service() {
                 ""
             }
 
+        val appIntent = Intent(applicationContext, MapsActivity::class.java)
+
+        val pendingIntent = PendingIntent.getActivity(
+            applicationContext, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val notification: Notification = Notification.Builder(this, channelId)
             .setContentTitle("Just Run")
             .setLargeIcon(BitmapFactory.decodeResource(resources, android.R.drawable.ic_dialog_email))
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentText("We're stealing your data, please don't turn this off!")
+            .setContentText("Tracking your run in the background")
+            .setContentIntent(pendingIntent)
             .build()
         startForeground(2001, notification)
 
