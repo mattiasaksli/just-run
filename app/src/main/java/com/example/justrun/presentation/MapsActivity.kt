@@ -1,27 +1,29 @@
 package com.example.justrun.presentation
 
-import  android.Manifest
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.justrun.utils.ForegroundService
 import com.example.justrun.R
 import com.example.justrun.presentation.viewmodels.WorkoutDataViewModel
+import com.example.justrun.utils.ForegroundService
 import com.google.android.gms.location.*
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -33,6 +35,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val workoutDataViewModel: WorkoutDataViewModel by viewModels()
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
+    lateinit var locationLatLngs: MutableList<LatLng>
+    private lateinit var previousLocation: LatLng
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,15 +52,43 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         locationRequest = LocationRequest.create()
         locationRequest.interval = 5000
 
+        locationLatLngs = mutableListOf<LatLng>()
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return
                 for (location in locationResult.locations) {
-                    Log.i("location", location.latitude.toString() + " " +  location.longitude.toString())
+                    Log.i(
+                        "location",
+                        location.latitude.toString() + " " + location.longitude.toString()
+                    )
+                    val locationLatLng = LatLng(location.latitude, location.longitude)
+                    val bearing = location.bearing
+                    locationLatLngs.add(locationLatLng)
+                    updateMapWithLocation(locationLatLng)
+                    updateCameraPosition(locationLatLng, bearing)
                 }
             }
-
         }
+    }
+
+    private fun updateMapWithLocation(location: LatLng) {
+        val polyLineOptions = PolylineOptions()
+
+        if (this::previousLocation.isInitialized && previousLocation != location) {
+            mMap.addPolyline(polyLineOptions.add(location).add(previousLocation))
+        }
+        previousLocation = location;
+    }
+
+    private fun updateCameraPosition(location: LatLng, bearing: Float) {
+        val cameraPosition = CameraPosition.Builder()
+            .target(location) // Sets the center of the map to location user
+            .zoom(18f) // Sets the zoom
+            .bearing(bearing) // Sets the orientation of the camera to east
+            .tilt(15f) // Sets the tilt of the camera to 30 degrees
+            .build() // Creates a CameraPosition from the builder
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
 
     override fun onDestroy() {
@@ -68,9 +100,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-        val tartu = LatLng(58.378025, 26.728493)
-        mMap.addMarker(MarkerOptions().position(tartu).title("Tartu"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(tartu))
         getLocationPermission()
         setLocationUI()
         startLocationUpdates()
@@ -96,9 +125,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             return
         }
 
-        mFusedLocationProviderClient.requestLocationUpdates(locationRequest,
+        mFusedLocationProviderClient.requestLocationUpdates(
+            locationRequest,
             locationCallback,
-            Looper.getMainLooper())
+            Looper.getMainLooper()
+        )
     }
 
     private fun getLocationPermission() {
