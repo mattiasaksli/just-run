@@ -14,7 +14,7 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        val mapsActivityIntent = Intent(this, MainActivity::class.java)
+        val mapsActivityIntent = Intent(this, MapsActivity::class.java)
 
         Handler(Looper.getMainLooper()).postDelayed({
 
