@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.justrun.data.models.WorkoutData
 
-@Database(entities = [WorkoutData::class], version = 1, exportSchema = false)
+@Database(entities = [WorkoutData::class], version = 2, exportSchema = false)
 
 abstract class AppDatabase : RoomDatabase() {
 

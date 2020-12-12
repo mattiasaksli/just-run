@@ -9,9 +9,12 @@ import com.example.justrun.data.models.WorkoutData
 
 @Dao
 interface WorkoutDataDao {
-    //needs new models or smt
+
+    @Query("SELECT * FROM workoutdata WHERE id = :id")
+    fun getWorkoutData(id: String): LiveData<WorkoutData>
+
     @Query("SELECT * FROM workoutdata")
-    fun getWorkoutData(): LiveData<WorkoutData>
+    fun getAllWorkoutData(): LiveData<List<WorkoutData>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(workoutData: WorkoutData)

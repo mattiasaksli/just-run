@@ -10,7 +10,7 @@ class WorkoutDataRepository @Inject constructor(
 
     fun getWorkoutData(): WorkoutData {
         //pole kindel kas see praegu töötab
-       return workoutDataDao.getWorkoutData().value!!
+       return workoutDataDao.getWorkoutData("id").value!!
     }
 
 }
