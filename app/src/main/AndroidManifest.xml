@@ -18,25 +18,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.JustRun">
-        <activity android:name=".presentation.SplashScreenActivity">
+        <activity android:name=".activities.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.WorkoutDetailsActivity" />
+        <activity android:name=".activities.WorkoutDetailsActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".presentation.MapsActivity"
+            android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps">
 
         </activity>
-        <activity android:name=".presentation.MainActivity"></activity>
+        <activity android:name=".activities.MainActivity"></activity>
 
         <service
             android:name=".utils.ForegroundService"

@@ -1,12 +1,10 @@
-package com.example.justrun.presentation
+package com.example.justrun.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Window
-import android.view.WindowManager
 import com.example.justrun.R
 
 class SplashScreenActivity : AppCompatActivity() {

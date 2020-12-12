@@ -1,4 +1,4 @@
-package com.example.justrun.presentation
+package com.example.justrun.activities
 
 import android.Manifest
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.justrun.R
-import com.example.justrun.presentation.viewmodels.WorkoutDataViewModel
+import com.example.justrun.viewmodels.WorkoutViewModel
 import com.example.justrun.utils.ForegroundService
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -20,19 +20,17 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
-import dagger.hilt.android.AndroidEntryPoint
 
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     val LOCATION_REQUEST_CODE = 101
     var locationPermissionGranted = false
     lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
-    private val workoutDataViewModel: WorkoutDataViewModel by viewModels()
+    private val workoutViewModel: WorkoutViewModel by viewModels()
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
     lateinit var locationLatLngs: MutableList<LatLng>

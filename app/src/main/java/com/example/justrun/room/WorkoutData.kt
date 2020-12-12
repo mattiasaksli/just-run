@@ -1,19 +1,20 @@
-package com.example.justrun.data.models
+package com.example.justrun.room
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(tableName = "workoutdata")
 data class WorkoutData(
-    // TODO: id for Room
-    @NonNull
-    @PrimaryKey
-    var id: String,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     var startDateTime: Long,
     var endDatetime: Long,
     var distance: Float,
     var steps: Int,
     // TODO: map route data?
-)
+) {
+    override fun toString(): String {
+        return "Workout : {id: $id, start: $startDateTime, end: $endDatetime, distance: $distance, steps: $steps}"
+    }
+}
+
