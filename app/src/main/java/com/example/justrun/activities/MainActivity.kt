@@ -67,15 +67,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpDatabase(){
         val db = WorkoutDb.getInstance(this)
+        /*
         val workout = WorkoutData(0, 10L, 11L, 100F, 100000)
-        val workout1 = WorkoutData(0, 10L, 11L, 100F, 100000)
-        val workout2 = WorkoutData(0, 10L, 11L, 100F, 100000)
-
-
         db.workoutDataDao().insert(workout)
-        db.workoutDataDao().insert(workout1)
-        db.workoutDataDao().insert(workout2)
-
+         */
         db.workoutDataDao().getAllWorkouts().forEach {
             Log.i("MainActivity", it.toString())
         }
