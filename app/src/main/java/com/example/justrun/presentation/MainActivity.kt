@@ -1,5 +1,6 @@
 package com.example.justrun.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,11 +11,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    companion object {
-        const val PERMISSION_REQ_CODE = 10
-        val TAG: String = MainActivity::class.java.name
-    }
-
     private var workouts = ArrayList<WorkoutData>()
     private lateinit var workoutsAdapter: WorkoutsAdapter
 
@@ -42,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openWorkoutDetails(workout: WorkoutData, index: Int) {
-        //TODO("Not yet implemented")
+        val intent = Intent(this, WorkoutDetailsActivity::class.java)
+        intent.putExtra("id", workout.id)
     }
 }
