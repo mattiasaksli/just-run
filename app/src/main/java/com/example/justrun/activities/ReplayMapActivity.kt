@@ -64,6 +64,7 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
         updateCameraPosition(workoutLocations[0])
         replay_distance_text.text = "Distance ran: " + calculateDistance(workoutLocations)
         replay_time_text.text = "Time elapsed: " + convertLongToDuration(workout.endDatetime - workout.startDateTime)
+        replay_steps_text.text = "Steps: " + workout.steps
 
     }
 

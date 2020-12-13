@@ -1,8 +1,14 @@
 package com.example.justrun.activities
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Looper
@@ -28,13 +34,18 @@ import kotlin.math.roundToInt
 
 
 //@AndroidEntryPoint
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListener {
 
+    private var sensorManager: SensorManager? = null
     private val LOCATION_REQUEST_CODE = 101
     private val LOCATION_REQUEST_INTERVAL: Long = 5000
     private var locationPermissionGranted = false
     private var locationLatLngList: MutableList<LatLng> = mutableListOf()
     private var counter = 0
+    private var totalSteps = 0f
+    private var previousTotalSteps = 0f
+    private var currentSteps = 0
+    private var running = false
 
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
@@ -50,7 +61,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         startService(Intent(this, ForegroundService::class.java))
-
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         startWorkOut()
         setUpDatabase()
         setUpLocationRequest()
@@ -73,13 +84,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         Log.i("maps", "resumed")
-        if (::mMap.isInitialized) updateMapWithLocations()
+        if (::mMap.isInitialized)  updateMapWithLocations()
+
+        setUpStepSensor()
+
+    }
+
+    private fun setUpStepSensor() {
+        val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        if (stepSensor == null) {
+            Log.e("stepsensor", "can't track steps")
+        } else {
+            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+        }
     }
 
     private fun setUpOverlay() {
 
         startTimeCounter()
-
         button_finish.setOnClickListener {
             finishWorkout()
         }
@@ -92,6 +114,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         workoutData.distance = distance
         workoutData.endDatetime = finishTime
         workoutData.locations = locationLatLngList
+        workoutData.steps = currentSteps.toInt()
+
+        stopService(Intent(this, ForegroundService::class.java))
+        sensorManager?.unregisterListener(this)
 
         Log.i("workoutData", workoutData.toString())
         if (SettingsActivity.SWITCH_DATA) db.workoutDataDao().insert(workoutData)
@@ -99,6 +125,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val activityIntent = Intent(this, MainActivity::class.java)
         startActivity(activityIntent)
         finish()
+        //sest muidu millegipärast jäi see activity käima
 
 
     }
@@ -118,7 +145,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun startWorkOut() {
         val startTime = System.currentTimeMillis()
-        Log.i("map", startTime.toString())
         workoutData = WorkoutData(startTime)
     }
 
@@ -168,6 +194,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Log.i("timer", "timer finished")
             }
         }.start()
+
+
     }
 
     private fun updateOverLayTimer(counter: Int) {
@@ -195,6 +223,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             val distanceKilometers = distance.toDouble().div(1000)
             text_distance.text = "Distance ran: $distanceKilometers km"
         }
+
+        text_steps.text = "Steps: $currentSteps"
     }
 
     private fun updateCameraPosition(location: LatLng, bearing: Float) {
@@ -213,8 +243,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         getLocationPermission()
+        getStepsPermission()
         setLocationUI()
         startLocationUpdates()
+
+    }
+
+    private fun getStepsPermission() {
+
+
+            if (ContextCompat.checkSelfPermission(
+                    applicationContext,
+                    Manifest.permission.ACTIVITY_RECOGNITION,
+                )
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                locationPermissionGranted = true
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    ActivityCompat.requestPermissions(
+                        this, arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                        LOCATION_REQUEST_CODE
+                    )
+                }
+            }
 
     }
 
@@ -248,7 +300,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         if (ContextCompat.checkSelfPermission(
                 applicationContext,
-                Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION,
             )
             == PackageManager.PERMISSION_GRANTED
         ) {
@@ -281,5 +333,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun setUpDatabase() {
         db = WorkoutDb.getInstance(this)
     }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        totalSteps = event!!.values[0]
+
+        if (!running) {
+            previousTotalSteps = totalSteps
+            running = true
+        }
+        currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
+
+    }
+
 
 }
