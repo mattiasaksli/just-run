@@ -35,7 +35,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="button_see_past_workouts">See past workouts</string>
     <string name="button_start_new_workout">Start new workout</string>
-    <string name="distance_value">%1$.2f m</string>
+    <string name="distance_value_m">%1$d m</string>
+    <string name="distance_value_km">%1$.2f km</string>
     <string name="header_date">Date</string>
     <string name="header_distance">Distance</string>
     <string name="header_steps">Steps</string>

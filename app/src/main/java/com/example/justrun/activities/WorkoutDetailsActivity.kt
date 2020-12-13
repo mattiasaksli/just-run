@@ -35,7 +35,12 @@ class WorkoutDetailsActivity : AppCompatActivity() {
             tv_workout_start.text = convertLongToTime(startDateTime)
             tv_workout_end.text = convertLongToTime(endDatetime)
             tv_duration.text = convertLongToDuration(endDatetime - startDateTime)
-            tv_distance.text = getString(R.string.distance_value, distance)
+            tv_distance.text =
+                if (distance <= 100) {
+                    getString(R.string.distance_value_m, distance.toInt())
+                } else {
+                    getString(R.string.distance_value_km, distance.toDouble().div(1000))
+                }
             tv_steps.text = workout.steps.toString()
         }
 

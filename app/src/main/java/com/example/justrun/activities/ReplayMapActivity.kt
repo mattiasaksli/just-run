@@ -62,7 +62,7 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         updateCameraPosition(workoutLocations[0])
-        replay_distance_text.text = "Distance ran: " + calculateDistance(workoutLocations) + " m"
+        replay_distance_text.text = "Distance ran: " + calculateDistance(workoutLocations)
         replay_time_text.text = "Time elapsed: " + convertLongToDuration(workout.endDatetime - workout.startDateTime)
 
     }
@@ -79,10 +79,10 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         return if (distance <= 100) {
-            distance.roundToInt().toString()
+            "${distance.roundToInt()} m"
         } else {
             val distanceKilometers = distance.div(1000)
-            distanceKilometers.toString()
+            "$distanceKilometers km"
         }
 
     }

@@ -34,7 +34,12 @@ class WorkoutsAdapter(
         val workout = data[position]
         holder.itemView.apply {
             tv_list_start_date.text = convertLongToTime(workout.startDateTime)
-            tv_list_distance.text = this.context.getString(R.string.distance_value, workout.distance)
+            tv_list_distance.text =
+                if (workout.distance <= 100) {
+                    this.context.getString(R.string.distance_value_m, workout.distance.toInt())
+                } else {
+                    this.context.getString(R.string.distance_value_km, workout.distance.toDouble().div(1000))
+                }
             tv_list_steps.text = workout.steps.toString()
 
             setOnClickListener {

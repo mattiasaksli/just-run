@@ -116,7 +116,7 @@
         android:id="@+id/tv_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/distance_value"
+        android:text="@string/distance_value_m"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_label_distance"
         app:layout_constraintEnd_toEndOf="parent"
