@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreferenceCompat
+        android:icon="@drawable/icon_location"
+        android:key="switch_location"
+        android:summaryOff="@string/location_switch_summary_on"
+        android:summaryOn="@string/location_switch_summary_off"
+        android:title="@string/location_switch_title" />
+    <SwitchPreferenceCompat
+        android:layout_width="match_parent"
+        android:defaultValue="true"
+        android:icon="@drawable/icon_storage"
+        android:key="switch_data"
+        android:summaryOff="@string/storage_switch_summary_on"
+        android:summaryOn="@string/storage_switch_summary_off"
+        android:title="@string/storage_switch_title" />
+</PreferenceScreen>

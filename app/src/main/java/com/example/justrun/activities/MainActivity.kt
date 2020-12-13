@@ -1,18 +1,18 @@
 package com.example.justrun.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceActivity
+import android.preference.PreferenceManager
 import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justrun.R
-import com.example.justrun.adapters.WorkoutsAdapter
-import com.example.justrun.viewmodels.WorkoutViewModel
-import com.example.justrun.room.WorkoutDb
-import com.example.justrun.room.WorkoutData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -42,5 +42,11 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         //super.onBackPressed()
         // won't go back to finished workout
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
+        return true
     }
 }
