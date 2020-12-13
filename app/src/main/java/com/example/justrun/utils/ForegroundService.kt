@@ -13,6 +13,8 @@ import com.example.justrun.activities.MapsActivity
 
 class ForegroundService : Service() {
 
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
@@ -20,15 +22,16 @@ class ForegroundService : Service() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 createNotificationChannel("run_service", "Running app background service")
             } else {
-                // If earlier version channel ID is not used
+                // If earlier version, channel ID is not used
                 ""
             }
 
         val appIntent = Intent(applicationContext, MapsActivity::class.java)
 
         val pendingIntent = PendingIntent.getActivity(
-            applicationContext, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT
+            this, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT
         )
+
         val notification: Notification = Notification.Builder(this, channelId)
             .setContentTitle("Just Run")
             .setLargeIcon(BitmapFactory.decodeResource(resources, android.R.drawable.ic_dialog_email))
@@ -36,6 +39,7 @@ class ForegroundService : Service() {
             .setContentText("Tracking your run in the background")
             .setContentIntent(pendingIntent)
             .build()
+
         startForeground(2001, notification)
 
         return START_STICKY
@@ -47,8 +51,7 @@ class ForegroundService : Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(channelId: String, channelName: String): String{
-        val chan = NotificationChannel(channelId,
-            channelName, NotificationManager.IMPORTANCE_NONE)
+        val chan = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_NONE)
         chan.lightColor = Color.BLUE
         chan.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
         val service = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

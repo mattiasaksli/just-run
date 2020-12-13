@@ -109,7 +109,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         for (latLng in locationLatLngList) {
             if (previousLatLng != null) {
                 val temporaryDistance = previousLatLng.sphericalDistance(latLng)
-                if (temporaryDistance > 1) distance += temporaryDistance
+                if (temporaryDistance > 2) distance += temporaryDistance
             }
             previousLatLng = latLng
         }

@@ -31,11 +31,13 @@
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps"
             android:launchMode="singleTask"></activity>
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.MainActivity"
+            />
 
         <service
             android:name=".utils.ForegroundService"
-            android:enabled="true" />
+            android:enabled="true"
+            android:foregroundServiceType="location"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
