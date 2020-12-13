@@ -1,6 +1,5 @@
 package com.example.justrun.room
 
-import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
@@ -14,7 +13,15 @@ data class WorkoutData(
     var steps: Int,
     var locations: List<LatLng>?
 ) {
-    constructor(startDateTime: Long): this(0, startDateTime, 0, 0.0f, 0, null) //id 0 is safe, gets overwritten when writing to DB
+    constructor(startDateTime: Long) : this(
+        0,
+        startDateTime,
+        0,
+        0.0f,
+        0,
+        null
+    ) //id 0 is safe, gets overwritten when writing to DB
+
     override fun toString(): String {
         return "Workout : {id: $id, start: $startDateTime, end: $endDatetime, distance: $distance, steps: $steps}"
     }

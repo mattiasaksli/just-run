@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button_newWorkout.setOnClickListener{ startWorkout() }
-        button_pastWorkouts.setOnClickListener{ openWorkouts() }
+        button_newWorkout.setOnClickListener { startWorkout() }
+        button_pastWorkouts.setOnClickListener { openWorkouts() }
     }
 
-    private fun startWorkout(){
+    private fun startWorkout() {
         val intent = Intent(this, MapsActivity::class.java)
         startActivity(intent)
     }

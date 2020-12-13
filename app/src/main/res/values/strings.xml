@@ -25,4 +25,5 @@
     <string name="previous_workouts">Previous workouts</string>
     <string name="logo">logo</string>
     <string name="feet">feet</string>
+    <string name="distance_value">%1$.2f km</string>
 </resources>

@@ -163,6 +163,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 updateOverLayTimer(counter)
                 counter++
             }
+
             override fun onFinish() {
                 Log.i("timer", "timer finished")
             }
@@ -175,12 +176,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             text_time.text = "Time elapsed: $timeElapsed s"
         }
         if (counter in 60..3599) {
-            val timeElapsed = counter/60
+            val timeElapsed = counter / 60
             text_time.text = "Time elapsed: $timeElapsed m"
         }
         if (counter in 3600..86400) {
-            val numberOfHours = (counter % 86400 ) / 3600
-            val numberOfMinutes = ((counter % 86400 ) % 3600 ) / 60
+            val numberOfHours = (counter % 86400) / 3600
+            val numberOfMinutes = ((counter % 86400) % 3600) / 60
 
             text_time.text = "Time elapsed: $numberOfHours h $numberOfMinutes m"
         }
@@ -190,8 +191,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val distance = calculateDistance().roundToInt()
         if (distance <= 100) {
             text_distance.text = "Distance ran: $distance m"
-        }
-        else {
+        } else {
             val distanceKilometers = distance.toDouble().div(1000)
             text_distance.text = "Distance ran: $distanceKilometers km"
         }

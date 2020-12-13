@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_workouts.*
 class WorkoutsActivity : AppCompatActivity() {
 
     private lateinit var model: WorkoutViewModel
-    private var workouts = listOf<WorkoutData>()
     private lateinit var workoutsAdapter: WorkoutsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
