@@ -98,6 +98,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val activityIntent = Intent(this, MainActivity::class.java)
         startActivity(activityIntent)
+        finish()
 
 
     }
@@ -156,7 +157,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    fun startTimeCounter() {
+    private fun startTimeCounter() {
         object : CountDownTimer(10000000000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 updateOverLayTimer(counter)

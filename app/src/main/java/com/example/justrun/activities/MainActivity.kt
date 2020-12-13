@@ -38,4 +38,9 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, WorkoutsActivity::class.java)
         startActivity(intent)
     }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        // won't go back to finished workout
+    }
 }
