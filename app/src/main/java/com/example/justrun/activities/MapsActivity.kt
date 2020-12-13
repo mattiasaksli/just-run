@@ -94,7 +94,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         workoutData.locations = locationLatLngList
 
         Log.i("workoutData", workoutData.toString())
-        db.workoutDataDao().insert(workoutData)
+        if (SettingsActivity.SWITCH_DATA) db.workoutDataDao().insert(workoutData)
 
         val activityIntent = Intent(this, MainActivity::class.java)
         startActivity(activityIntent)
@@ -280,13 +280,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun setUpDatabase() {
         db = WorkoutDb.getInstance(this)
-        /*
-        val workout = WorkoutData(0, 10L, 11L, 100F, 100000)
-        db.workoutDataDao().insert(workout)
-         */
-        db.workoutDataDao().getAllWorkouts().forEach {
-            Log.i("maps", it.toString())
-        }
     }
 
 }

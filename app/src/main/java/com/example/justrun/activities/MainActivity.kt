@@ -1,21 +1,19 @@
 package com.example.justrun.activities
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceActivity
-import android.preference.PreferenceManager
 import android.util.Log
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.example.justrun.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     companion object {
         const val PERMISSION_REQ_CODE = 10
         val TAG: String = MainActivity::class.java.name
@@ -28,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         button_newWorkout.setOnClickListener { startWorkout() }
         button_pastWorkouts.setOnClickListener { openWorkouts() }
         button_settings.setOnClickListener { openSettings() }
+
     }
 
     private fun openSettings() {
@@ -48,11 +47,5 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         //super.onBackPressed()
         // won't go back to finished workout
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val intent = Intent(this, SettingsActivity::class.java)
-        startActivity(intent)
-        return true
     }
 }

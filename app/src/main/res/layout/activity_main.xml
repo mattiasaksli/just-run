@@ -55,6 +55,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="60dp"
+        android:foregroundTint="#56FFFFFF"
+        android:tint="#EE4C4B4B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_settings" />

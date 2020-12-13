@@ -2,12 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <SwitchPreferenceCompat
-        android:icon="@drawable/icon_location"
-        android:key="switch_location"
-        android:summaryOff="@string/location_switch_summary_on"
-        android:summaryOn="@string/location_switch_summary_off"
-        android:title="@string/location_switch_title" />
-    <SwitchPreferenceCompat
+        android:id="@+id/Switch_data"
         android:layout_width="match_parent"
         android:defaultValue="true"
         android:icon="@drawable/icon_storage"
@@ -15,4 +10,10 @@
         android:summaryOff="@string/storage_switch_summary_on"
         android:summaryOn="@string/storage_switch_summary_off"
         android:title="@string/storage_switch_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/icon_bin"
+        android:key="@string/checkbox_clear_cache"
+        android:summary="@string/checkbox_summary"
+        android:title="@string/checkbox_title" />
 </PreferenceScreen>

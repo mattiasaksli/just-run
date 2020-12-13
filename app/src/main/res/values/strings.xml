@@ -36,4 +36,7 @@
     <string name="button_see_past_workouts">See past workouts</string>
     <string name="button_start_new_workout">Start new workout</string>
     <string name="distance_value">%1$.2f km</string>
+    <string name="checkbox_clear_cache">clear_cache</string>
+    <string name="checkbox_summary">Clear all data of past workouts</string>
+    <string name="checkbox_title">Clear cache</string>
 </resources>
