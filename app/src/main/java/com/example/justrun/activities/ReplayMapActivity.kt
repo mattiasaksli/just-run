@@ -13,9 +13,11 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.ktx.utils.sphericalDistance
+import kotlinx.android.synthetic.main.map_overlay.*
 import kotlinx.android.synthetic.main.replay_map_overlay.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -60,12 +62,12 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         updateCameraPosition(workoutLocations[0])
-        replay_distance_text.text = "Distance ran: " + calculateDistance(workoutLocations)
+        replay_distance_text.text = "Distance ran: " + calculateDistance(workoutLocations) + " m"
         replay_time_text.text = "Time elapsed: " + convertLongToDuration(workout.endDatetime - workout.startDateTime)
 
     }
 
-    private fun calculateDistance(workoutLocations : List<LatLng>): Float {
+    private fun calculateDistance(workoutLocations : List<LatLng>): String {
         var distance = 0.0
         var previousLatLng: LatLng? = null
         for (latLng in workoutLocations) {
@@ -75,7 +77,14 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             previousLatLng = latLng
         }
-        return distance.toFloat()
+
+        return if (distance <= 100) {
+            distance.roundToInt().toString()
+        } else {
+            val distanceKilometers = distance.div(1000)
+            distanceKilometers.toString()
+        }
+
     }
     private fun updateCameraPosition(location: LatLng) {
         val cameraPosition = CameraPosition.Builder()
@@ -87,6 +96,8 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
+
+
     private fun convertLongToDuration(duration: Long): String {
         val seconds = duration / 1000 % 60
         val minutes = duration / (1000 * 60) % 60
