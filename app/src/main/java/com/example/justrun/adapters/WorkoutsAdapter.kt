@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.justrun.R
 import com.example.justrun.room.WorkoutData
 import kotlinx.android.synthetic.main.workouts_list_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WorkoutsAdapter(
     private var listener: WorkoutAdapterListener
@@ -15,7 +17,7 @@ class WorkoutsAdapter(
         fun onWorkoutClick(workout: WorkoutData)
     }
 
-    var data =  arrayOf<WorkoutData>()
+    var data = arrayOf<WorkoutData>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -31,8 +33,8 @@ class WorkoutsAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val workout = data[position]
         holder.itemView.apply {
-            tv_list_start_date.text = workout.startDateTime.toString()
-            tv_list_distance.text = workout.distance.toString()
+            tv_list_start_date.text = convertLongToTime(workout.startDateTime)
+            tv_list_distance.text = this.context.getString(R.string.distance_value, workout.distance)
             tv_list_steps.text = workout.steps.toString()
 
             setOnClickListener {
@@ -43,5 +45,11 @@ class WorkoutsAdapter(
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    private fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.getDefault())
+        return format.format(date)
     }
 }

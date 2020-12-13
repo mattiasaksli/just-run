@@ -24,24 +24,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar?.show();
 
-        button_newWorkout.setOnClickListener{ startWorkout() }
-        button_pastWorkouts.setOnClickListener{ openWorkouts() }
-
-
+        button_newWorkout.setOnClickListener { startWorkout() }
+        button_pastWorkouts.setOnClickListener { openWorkouts() }
     }
 
-    private fun startWorkout(){
-        Log.i(TAG, "Starting workout activity")
-
+    private fun startWorkout() {
         val intent = Intent(this, MapsActivity::class.java)
         startActivity(intent)
     }
 
     private fun openWorkouts() {
-        Log.i(TAG, "Opening workouts list activity")
-
         val intent = Intent(this, WorkoutsActivity::class.java)
         startActivity(intent)
     }
