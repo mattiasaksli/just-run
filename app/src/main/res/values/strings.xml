@@ -39,4 +39,12 @@
     <string name="checkbox_clear_cache">clear_cache</string>
     <string name="checkbox_summary">Clear all data of past workouts</string>
     <string name="checkbox_title">Clear cache</string>
+    <string name="distance_value_m">%1$d m</string>
+    <string name="distance_value_km">%1$.2f km</string>
+    <string name="header_date">Date</string>
+    <string name="header_distance">Distance</string>
+    <string name="header_steps">Steps</string>
+    <string name="back_arrow">back arrow</string>
+    <string name="settings">settings</string>
+    <string name="placeholder">placeholder</string>
 </resources>

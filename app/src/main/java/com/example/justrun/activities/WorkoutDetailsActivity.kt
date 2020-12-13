@@ -1,5 +1,6 @@
 package com.example.justrun.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.justrun.R
@@ -7,6 +8,7 @@ import com.example.justrun.room.WorkoutDb
 import kotlinx.android.synthetic.main.activity_workout_details.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class WorkoutDetailsActivity : AppCompatActivity() {
     companion object {
@@ -20,6 +22,10 @@ class WorkoutDetailsActivity : AppCompatActivity() {
         val id = intent.getIntExtra(EXTRA_WORKOUT_ID, -1)
 
         if (id > 0) getAndShowWorkoutDetails(id)
+
+        button_back_workout.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getAndShowWorkoutDetails(id: Int) {
@@ -29,8 +35,19 @@ class WorkoutDetailsActivity : AppCompatActivity() {
             tv_workout_start.text = convertLongToTime(startDateTime)
             tv_workout_end.text = convertLongToTime(endDatetime)
             tv_duration.text = convertLongToDuration(endDatetime - startDateTime)
-            tv_distance.text = getString(R.string.distance_value, distance)
+            tv_distance.text =
+                if (distance <= 100) {
+                    getString(R.string.distance_value_m, distance.toInt())
+                } else {
+                    getString(R.string.distance_value_km, distance.toDouble().div(1000))
+                }
             tv_steps.text = workout.steps.toString()
+        }
+
+        btn_map_activity.setOnClickListener {
+            val intent = Intent(baseContext, ReplayMapActivity::class.java)
+            intent.putExtra("workout_id", id)
+            startActivity(intent)
         }
     }
 

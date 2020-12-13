@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".activities.WorkoutDetailsActivity">
 
+    <ImageButton
+        android:id="@+id/button_back_workout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/layout_bg"
+        android:backgroundTint="#D5D5D5"
+        android:contentDescription="@string/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -17,8 +30,9 @@
         android:id="@+id/tv_label_workout_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="120dp"
         android:text="@string/start"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/end"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_workout_start" />
 
@@ -37,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/duration"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_workout_end" />
 
@@ -46,6 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/steps"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_distance" />
 
@@ -55,6 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/distance"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tv_label_duration" />
 
@@ -62,7 +80,8 @@
         android:id="@+id/tv_workout_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/placeholder"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_label_workout_start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -73,7 +92,8 @@
         android:id="@+id/tv_workout_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/placeholder"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_label_workout_end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -84,7 +104,8 @@
         android:id="@+id/tv_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/placeholder"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_label_duration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -95,7 +116,8 @@
         android:id="@+id/tv_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/distance_value"
+        android:text="@string/distance_value_m"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_label_distance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -105,7 +127,8 @@
         android:id="@+id/tv_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/placeholder"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_label_steps"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -113,9 +136,10 @@
 
     <Button
         android:id="@+id/btn_map_activity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
         android:text="@string/view_route_on_map"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
