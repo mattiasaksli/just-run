@@ -2,26 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_marginTop="5dp"
+    android:paddingTop="5dp"
+    android:orientation="horizontal"
+    android:background="@drawable/border">
 
     <TextView
         android:id="@+id/tv_list_start_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.33"
-        android:text="Start" />
+        android:text="@string/header_date"
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tv_list_distance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.34"
-        android:text="Distance" />
+        android:text="@string/header_distance"
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tv_list_steps"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.33"
-        android:text="Steps" />
+        android:text="@string/header_steps"
+        android:textAlignment="center"
+        android:textSize="18sp" />
 </LinearLayout>

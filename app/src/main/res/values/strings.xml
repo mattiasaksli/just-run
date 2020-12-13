@@ -26,4 +26,7 @@
     <string name="logo">logo</string>
     <string name="feet">feet</string>
     <string name="distance_value">%1$.2f km</string>
+    <string name="header_date">Date</string>
+    <string name="header_distance">Distance</string>
+    <string name="header_steps">Steps</string>
 </resources>

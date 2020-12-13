@@ -49,7 +49,7 @@ class WorkoutsAdapter(
 
     private fun convertLongToTime(time: Long): String {
         val date = Date(time)
-        val format = SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.getDefault())
+        val format = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
         return format.format(date)
     }
 }
