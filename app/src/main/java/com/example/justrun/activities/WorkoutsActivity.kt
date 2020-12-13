@@ -11,6 +11,7 @@ import com.example.justrun.adapters.WorkoutsAdapter
 import com.example.justrun.room.WorkoutData
 import com.example.justrun.room.WorkoutDb
 import com.example.justrun.viewmodels.WorkoutViewModel
+import kotlinx.android.synthetic.main.activity_preferences.*
 import kotlinx.android.synthetic.main.activity_workouts.*
 
 class WorkoutsActivity : AppCompatActivity() {
@@ -26,6 +27,10 @@ class WorkoutsActivity : AppCompatActivity() {
         model = ViewModelProvider(this).get(WorkoutViewModel::class.java)
         setUpRecyclerView()
         setUpDatabase()
+
+        button_back_workouts.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onResume() {

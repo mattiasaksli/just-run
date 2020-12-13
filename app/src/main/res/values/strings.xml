@@ -39,4 +39,5 @@
     <string name="header_date">Date</string>
     <string name="header_distance">Distance</string>
     <string name="header_steps">Steps</string>
+    <string name="back_arrow">back arrow</string>
 </resources>
