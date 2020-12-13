@@ -27,6 +27,12 @@ class MainActivity : AppCompatActivity() {
 
         button_newWorkout.setOnClickListener { startWorkout() }
         button_pastWorkouts.setOnClickListener { openWorkouts() }
+        button_settings.setOnClickListener { openSettings() }
+    }
+
+    private fun openSettings() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
     }
 
     private fun startWorkout() {
