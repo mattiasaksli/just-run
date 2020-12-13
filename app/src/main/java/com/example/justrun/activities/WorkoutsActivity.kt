@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_workouts.*
 class WorkoutsActivity : AppCompatActivity() {
 
     private lateinit var model: WorkoutViewModel
-    private var workouts = listOf<WorkoutData>()
+    private lateinit var database : WorkoutDb
     private lateinit var workoutsAdapter: WorkoutsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,14 +37,7 @@ class WorkoutsActivity : AppCompatActivity() {
     }
 
     private fun setUpDatabase(){
-        val db = WorkoutDb.getInstance(this)
-        /*
-        val workout = WorkoutData(0, 10L, 11L, 100F, 100000)
-        db.workoutDataDao().insert(workout)
-         */
-        db.workoutDataDao().getAllWorkouts().forEach {
-            Log.i("MainActivity", it.toString())
-        }
+        database = WorkoutDb.getInstance(this)
     }
 
     private fun setUpRecyclerView() {

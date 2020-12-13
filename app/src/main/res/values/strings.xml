@@ -25,4 +25,14 @@
     <string name="previous_workouts">Previous workouts</string>
     <string name="logo">logo</string>
     <string name="feet">feet</string>
+    <string name="storage_switch_title">Storage</string>
+    <string name="location_switch_title">Location</string>
+    <string name="location_switch_summary_on">Your location is not shared</string>
+    <string name="location_switch_summary_off">Your location is shared</string>
+    <string name="storage_switch_summary_on">Your workout data is not stored</string>
+    <string name="storage_switch_summary_off">Your workout data is stored</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_see_past_workouts">See past workouts</string>
+    <string name="button_start_new_workout">Start new workout</string>
 </resources>
