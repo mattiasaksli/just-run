@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".activities.WorkoutDetailsActivity">
 
+    <ImageButton
+        android:id="@+id/button_back_workout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/layout_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
