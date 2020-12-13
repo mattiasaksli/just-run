@@ -21,58 +21,21 @@ class MainActivity : AppCompatActivity() {
         val TAG: String = MainActivity::class.java.name
     }
 
-    private lateinit var model: WorkoutViewModel
-    private var workouts = listOf<WorkoutData>()
-    private lateinit var workoutsAdapter: WorkoutsAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        model = ViewModelProvider(this).get(WorkoutViewModel::class.java)
-
-        setUpRecyclerView()
-
-        setUpDatabase()
+        button_newWorkout.setOnClickListener{ startWorkout() }
+        button_pastWorkouts.setOnClickListener{ openWorkouts() }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        model.refresh()
-        workoutsAdapter.data = model.workouts.toTypedArray()
-        workoutsAdapter.notifyDataSetChanged()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    private fun setUpRecyclerView() {
-        workoutsAdapter = WorkoutsAdapter(
-            object : WorkoutsAdapter.WorkoutAdapterListener {
-                override fun onWorkoutClick(workout: WorkoutData) {
-                    openWorkoutDetails(workout)
-                }
-            })
-        rv_workouts.adapter = workoutsAdapter
-        rv_workouts.layoutManager = LinearLayoutManager(this)
-    }
-
-    private fun openWorkoutDetails(workout: WorkoutData) {
-        val intent = Intent(this, WorkoutDetailsActivity::class.java)
-        intent.putExtra(WorkoutDetailsActivity.EXTRA_WORKOUT_ID, workout.id)
+    private fun startWorkout(){
+        val intent = Intent(this, MapsActivity::class.java)
         startActivity(intent)
     }
 
-    private fun setUpDatabase(){
-        val db = WorkoutDb.getInstance(this)
-        /*
-        val workout = WorkoutData(0, 10L, 11L, 100F, 100000)
-        db.workoutDataDao().insert(workout)
-         */
-        db.workoutDataDao().getAllWorkouts().forEach {
-            Log.i("MainActivity", it.toString())
-        }
+    private fun openWorkouts() {
+        val intent = Intent(this, WorkoutsActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -21,4 +21,8 @@
     <string name="time_elapsed">Time elapsed:</string>
     <string name="distance_ran">Distance ran:</string>
     <string name="finish_workout">Finish workout</string>
+    <string name="start_new_workout">Start new workout</string>
+    <string name="previous_workouts">Previous workouts</string>
+    <string name="logo">logo</string>
+    <string name="feet">feet</string>
 </resources>

@@ -4,24 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.WorkoutsActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_workouts"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="198dp"
-        tools:layout_editor_absoluteY="221dp" />
+        android:orientation="vertical">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        <ImageView
+            android:id="@+id/imageView_logo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="100dp"
+            android:src="@drawable/justrun_logo" />
 
+        <Button
+            android:id="@+id/button_newWorkout"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:text="Start new workout"
+            android:textAlignment="gravity"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            app:icon="@android:drawable/ic_input_add"
+            app:iconSize="30dp" />
+
+        <Button
+            android:id="@+id/button_pastWorkouts"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:text="See past workouts"
+            android:textAlignment="gravity"
+            android:textIsSelectable="false"
+            android:textSize="18sp"
+            app:icon="@android:drawable/btn_star"
+            app:iconSize="30dp" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
