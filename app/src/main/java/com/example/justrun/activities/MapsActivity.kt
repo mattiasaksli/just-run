@@ -56,6 +56,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private lateinit var mMap: GoogleMap
     private lateinit var workoutData: WorkoutData
     private lateinit var db: WorkoutDb
+    private lateinit var timer: CountDownTimer
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +80,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         stopService(Intent(this, ForegroundService::class.java))
         sensorManager?.unregisterListener(this)
         mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
+        timer.onFinish()
+
         Log.i("maps", "destroyed")
 
 
@@ -130,6 +134,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         stopService(Intent(this, ForegroundService::class.java))
         sensorManager?.unregisterListener(this)
         mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
+        timer.onFinish()
 
         Log.i("workoutData", workoutData.toString())
         if (SettingsActivity.SWITCH_DATA) db.workoutDataDao().insert(workoutData)
@@ -196,7 +201,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     }
 
     private fun startTimeCounter() {
-        object : CountDownTimer(10000000000, 1000) {
+        timer = object : CountDownTimer(10000000000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 updateOverLayTimer(counter)
                 counter++
@@ -204,7 +209,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
             override fun onFinish() {
                 Log.i("timer", "timer finished")
+                timer.cancel()
             }
+
         }.start()
 
 
