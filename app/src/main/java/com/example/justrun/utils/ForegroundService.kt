@@ -8,11 +8,9 @@ import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import com.example.justrun.activities.MapsActivity
 
 class ForegroundService : Service() {
-
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -34,7 +32,12 @@ class ForegroundService : Service() {
 
         val notification: Notification = Notification.Builder(this, channelId)
             .setContentTitle("Just Run")
-            .setLargeIcon(BitmapFactory.decodeResource(resources, android.R.drawable.ic_dialog_email))
+            .setLargeIcon(
+                BitmapFactory.decodeResource(
+                    resources,
+                    android.R.drawable.ic_dialog_email
+                )
+            )
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setContentText("Tracking your run in the background")
             .setContentIntent(pendingIntent)
@@ -50,7 +53,7 @@ class ForegroundService : Service() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(channelId: String, channelName: String): String{
+    private fun createNotificationChannel(channelId: String, channelName: String): String {
         val chan = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_NONE)
         chan.lightColor = Color.BLUE
         chan.lockscreenVisibility = Notification.VISIBILITY_PRIVATE

@@ -58,6 +58,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private lateinit var db: WorkoutDb
     private lateinit var timer: CountDownTimer
 
+    companion object {
+        val TAG: String = MapsActivity::class.java.name
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,33 +85,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
         timer.onFinish()
 
-        Log.i("maps", "destroyed")
-
+        Log.i(TAG, "Activity destroyed")
 
 
     }
 
     override fun onPause() {
         super.onPause()
-        Log.i("maps", "paused")
+        Log.i(TAG, "Activity paused")
 
     }
 
     override fun onResume() {
         super.onResume()
-        Log.i("maps", "resumed")
-        if (::mMap.isInitialized)  updateMapWithLocations()
+        Log.i(TAG, "Activity resumed")
+        if (::mMap.isInitialized) updateMapWithLocations()
         setUpStepSensor()
 
     }
 
 
-
-
     private fun setUpStepSensor() {
         val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         if (stepSensor == null) {
-            Log.e("stepsensor", "can't track steps")
+            Log.e(TAG, "StepSensor: can't track steps")
         } else {
             sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_FASTEST)
         }
@@ -136,10 +136,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
         timer.onFinish()
 
-        Log.i("workoutData", workoutData.toString())
         if (SettingsActivity.SWITCH_DATA) db.workoutDataDao().insert(workoutData)
         val returnIntent = intent
-        returnIntent.putExtra("maps", "finished")
+        returnIntent.putExtra(TAG, "Workout finished: $workoutData")
         setResult(Activity.RESULT_OK, returnIntent)
         finish()
     }
@@ -173,8 +172,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 locationResult ?: return
                 for (location in locationResult.locations) {
                     Log.i(
-                        "location",
-                        location.latitude.toString() + " " + location.longitude.toString()
+                        TAG,"Location: ${location.latitude} ${location.longitude}"
                     )
                     val locationLatLng = LatLng(location.latitude, location.longitude)
                     val bearing = location.bearing
@@ -205,7 +203,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             }
 
             override fun onFinish() {
-                Log.i("timer", "timer finished")
+                Log.i(TAG, "Timer finished")
                 timer.cancel()
             }
 
@@ -278,21 +276,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private fun getStepsPermission() {
 
 
-            if (ContextCompat.checkSelfPermission(
-                    applicationContext,
-                    Manifest.permission.ACTIVITY_RECOGNITION,
+        if (ContextCompat.checkSelfPermission(
+                applicationContext,
+                Manifest.permission.ACTIVITY_RECOGNITION,
+            )
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+            locationPermissionGranted = true
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                    LOCATION_REQUEST_CODE
                 )
-                == PackageManager.PERMISSION_GRANTED
-            ) {
-                locationPermissionGranted = true
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    ActivityCompat.requestPermissions(
-                        this, arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
-                        LOCATION_REQUEST_CODE
-                    )
-                }
             }
+        }
 
     }
 
