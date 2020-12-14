@@ -209,9 +209,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     private fun updateMapWithLocations() {
         mMap.clear()
-        for (latLng in locationLatLngList) {
-            mMap.addPolyline(polyLineOptions.add(latLng))
-        }
+        polyLineOptions.addAll(locationLatLngList)
+        mMap.addPolyline(polyLineOptions)
         updateOverLayDistance()
     }
 
