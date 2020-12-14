@@ -1,6 +1,5 @@
 package com.example.justrun.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao

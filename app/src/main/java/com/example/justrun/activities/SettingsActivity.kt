@@ -11,14 +11,15 @@ import com.example.justrun.room.WorkoutDb
 import kotlinx.android.synthetic.main.activity_preferences.*
 
 
-class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener, SharedPreferences.Editor {
+class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener,
+    SharedPreferences.Editor {
 
 
-    private lateinit var database : WorkoutDb
-    private lateinit var preferences : SharedPreferences
+    private lateinit var database: WorkoutDb
+    private lateinit var preferences: SharedPreferences
 
     companion object {
-        const val TAG = "SettingsActivity"
+        val TAG: String = SettingsActivity::class.java.name
         var SWITCH_DATA = true
     }
 
@@ -59,8 +60,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
         if (key == "switch_data") {
             SWITCH_DATA = value!!
-        }
-        else if (key == "clear_cache") {
+        } else if (key == "clear_cache") {
             val workouts = database.workoutDataDao().getAllWorkouts()
 
             if (workouts.isNotEmpty())

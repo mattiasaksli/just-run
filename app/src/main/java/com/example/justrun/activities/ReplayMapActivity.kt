@@ -12,7 +12,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
-import kotlinx.android.synthetic.main.map_overlay.*
 import kotlinx.android.synthetic.main.replay_map_overlay.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,11 +26,13 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_replay_map)
+
         val mapFragment =
             supportFragmentManager.findFragmentById(R.id.replay_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
         val workoutId = intent.getIntExtra("workout_id", 0)
-        workoutId.let { setUpDatabase(it.toString()) }
+        setUpDatabase(workoutId.toString())
 
         button_back_replay.setOnClickListener {
             finish()

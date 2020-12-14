@@ -18,8 +18,10 @@ class Converters {
     var latLngJsonAdapter: JsonAdapter<List<LatLng>> = moshi.adapter(listOfTailLocation)
 
     @TypeConverter
-    fun tailLocationsToString(tailLocations: List<LatLng>?): String = latLngJsonAdapter.toJson(tailLocations)
+    fun tailLocationsToString(tailLocations: List<LatLng>?): String =
+        latLngJsonAdapter.toJson(tailLocations)
 
     @TypeConverter
-    fun stringToTailLocations(stringListString: String): List<LatLng>? = latLngJsonAdapter.fromJson(stringListString)
+    fun stringToTailLocations(stringListString: String): List<LatLng>? =
+        latLngJsonAdapter.fromJson(stringListString)
 }

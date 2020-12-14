@@ -38,7 +38,10 @@ class WorkoutsAdapter(
                 if (workout.distance <= 100) {
                     this.context.getString(R.string.distance_value_m, workout.distance.toInt())
                 } else {
-                    this.context.getString(R.string.distance_value_km, workout.distance.toDouble().div(1000))
+                    this.context.getString(
+                        R.string.distance_value_km,
+                        workout.distance.toDouble().div(1000)
+                    )
                 }
             tv_list_steps.text = workout.steps.toString()
 

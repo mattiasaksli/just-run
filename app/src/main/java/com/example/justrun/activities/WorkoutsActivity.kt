@@ -1,9 +1,8 @@
 package com.example.justrun.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justrun.R
@@ -11,13 +10,12 @@ import com.example.justrun.adapters.WorkoutsAdapter
 import com.example.justrun.room.WorkoutData
 import com.example.justrun.room.WorkoutDb
 import com.example.justrun.viewmodels.WorkoutViewModel
-import kotlinx.android.synthetic.main.activity_preferences.*
 import kotlinx.android.synthetic.main.activity_workouts.*
 
 class WorkoutsActivity : AppCompatActivity() {
 
     private lateinit var model: WorkoutViewModel
-    private lateinit var database : WorkoutDb
+    private lateinit var database: WorkoutDb
     private lateinit var workoutsAdapter: WorkoutsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +39,7 @@ class WorkoutsActivity : AppCompatActivity() {
         workoutsAdapter.notifyDataSetChanged()
     }
 
-    private fun setUpDatabase(){
+    private fun setUpDatabase() {
         database = WorkoutDb.getInstance(this)
     }
 

@@ -16,7 +16,8 @@ abstract class WorkoutDb : RoomDatabase() {
     companion object {
         private lateinit var dbInstance: WorkoutDb
 
-        @Synchronized fun getInstance(context: Context): WorkoutDb {
+        @Synchronized
+        fun getInstance(context: Context): WorkoutDb {
             if (!this::dbInstance.isInitialized) {
                 dbInstance = Room.databaseBuilder(
                     context, WorkoutDb::class.java, "myWorkouts"
