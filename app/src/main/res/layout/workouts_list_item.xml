@@ -14,7 +14,7 @@
         android:layout_weight="0.33"
         android:text="@string/header_date"
         android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textSize="@dimen/overlay_text_large" />
 
     <TextView
         android:id="@+id/tv_list_distance"
@@ -23,7 +23,7 @@
         android:layout_weight="0.34"
         android:text="@string/header_distance"
         android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textSize="@dimen/overlay_text_large" />
 
     <TextView
         android:id="@+id/tv_list_steps"
@@ -32,5 +32,5 @@
         android:layout_weight="0.33"
         android:text="@string/header_steps"
         android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textSize="@dimen/overlay_text_large" />
 </LinearLayout>

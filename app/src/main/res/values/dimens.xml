@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_horizontal_margin">25dp</dimen>
+    <dimen name="toolbar_vertical_margin">50dp</dimen>
+    <dimen name="toolbar_generic_size">40dp</dimen>
+
+    <dimen name="padding_light">5dp</dimen>
+    <dimen name="padding_medium">10dp</dimen>
+    <dimen name="margin_fat">20dp</dimen>
+    <dimen name="margin_thick">30dp</dimen>
+    <dimen name="margin_oprah">100dp</dimen>
+
+
+    <dimen name="overlay_width">180dp</dimen>
+
+
+    <dimen name="overlay_text_big">16sp</dimen>
+    <dimen name="overlay_text_large">18sp</dimen>
+    <dimen name="overlay_text_whoa">24sp</dimen>
+    <dimen name="overlay_text_wtf">32sp</dimen>
+
+    <dimen name="button_large_width">300dp</dimen>
+    <dimen name="button_large_height">60dp</dimen>
+
+
+</resources>

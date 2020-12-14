@@ -52,5 +52,5 @@
     <string name="settings">settings</string>
     <string name="placeholder">placeholder</string>
     <string name="workout_duration">Workout Duration</string>
-    <string name="until">until</string>
+    <string name="until">to</string>
 </resources>

@@ -10,11 +10,10 @@
         android:id="@+id/overlaySquare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="@dimen/toolbar_horizontal_margin"
+        android:layout_marginTop="@dimen/toolbar_vertical_margin"
         android:background="@drawable/layout_bg"
-        android:minWidth="240dp"
-        android:padding="8dp"
+        android:minWidth="@dimen/overlay_width"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,9 +21,9 @@
             android:id="@+id/text_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="4dp"
+            android:padding="@dimen/padding_light"
             android:text="@string/header_distance"
-            android:textSize="16sp"
+            android:textSize="@dimen/overlay_text_big"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +32,7 @@
             android:id="@+id/text_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="4dp"
+            android:padding="@dimen/padding_light"
             android:text="@string/time_elapsed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_distance" />
@@ -42,7 +41,7 @@
             android:id="@+id/text_steps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="4dp"
+            android:padding="@dimen/padding_light"
             android:text="@string/header_steps"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_time" />
@@ -52,10 +51,10 @@
         android:id="@+id/button_finish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="@dimen/toolbar_horizontal_margin"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:text="@string/finish_workout"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/overlaySquare" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,10 +7,12 @@
 
     <ImageButton
         android:id="@+id/button_back_preferences"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_width="@dimen/toolbar_generic_size"
+        android:layout_height="@dimen/toolbar_generic_size"
+        android:layout_marginStart="@dimen/toolbar_horizontal_margin"
+        android:layout_marginTop="@dimen/toolbar_vertical_margin"
+        android:background="@drawable/layout_bg"
+        android:backgroundTint="@color/navigation_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back" />
@@ -18,7 +20,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="@dimen/margin_oprah"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

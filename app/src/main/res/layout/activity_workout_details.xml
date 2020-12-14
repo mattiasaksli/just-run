@@ -8,12 +8,12 @@
 
     <ImageButton
         android:id="@+id/button_back_workout"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="@dimen/toolbar_generic_size"
+        android:layout_height="@dimen/toolbar_generic_size"
+        android:layout_marginStart="@dimen/toolbar_horizontal_margin"
+        android:layout_marginTop="@dimen/toolbar_vertical_margin"
         android:background="@drawable/layout_bg"
-        android:backgroundTint="#D5D5D5"
+        android:backgroundTint="@color/navigation_bg"
         android:contentDescription="@string/back_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,12 +21,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="350dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin_fat"
         android:background="@drawable/layout_bg"
         android:backgroundTint="@android:color/holo_blue_dark"
-        android:padding="10dp"
+        android:padding="@dimen/padding_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_back_workout">
@@ -48,28 +48,28 @@
                 android:id="@+id/tv_workout_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="15dp"
+                android:paddingEnd="@dimen/padding_medium"
                 android:text="@string/placeholder"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/overlay_text_whoa" />
 
             <TextView
                 android:id="@+id/minus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/until"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/overlay_text_large"
                 android:textStyle="italic" />
 
             <TextView
                 android:id="@+id/tv_workout_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="15dp"
+                android:paddingStart="@dimen/padding_medium"
                 android:text="@string/placeholder"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="@dimen/overlay_text_whoa" />
 
         </LinearLayout>
 
@@ -77,10 +77,10 @@
             android:id="@+id/tv_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/padding_medium"
             android:text="@string/placeholder"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/overlay_text_large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,10 +90,10 @@
             android:id="@+id/tv_title_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/padding_medium"
             android:text="@string/workout_duration"
             android:textColor="#FFFFFF"
-            android:textSize="32sp"
+            android:textSize="@dimen/overlay_text_wtf"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,9 +105,9 @@
         android:id="@+id/tv_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="@dimen/margin_oprah"
         android:text="@string/distance_value_m"
-        android:textSize="24sp"
+        android:textSize="@dimen/overlay_text_whoa"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +117,7 @@
         android:id="@+id/tv_steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="@dimen/toolbar_vertical_margin"
         android:text="@string/placeholder"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,10 +126,10 @@
 
     <Button
         android:id="@+id/btn_map_activity"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/button_large_width"
+        android:layout_height="@dimen/button_large_height"
         android:text="@string/view_route_on_map"
-        android:textSize="18sp"
+        android:textSize="@dimen/overlay_text_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
