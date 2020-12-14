@@ -79,7 +79,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         mainHandler = Handler(Looper.getMainLooper())
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        LOCATION_REQUEST_INTERVAL = preferences.all.getValue("interval_preference").toString().toLong()
+        if (preferences.contains("interval_preference"))
+            LOCATION_REQUEST_INTERVAL = preferences.all.getValue("interval_preference").toString().toLong()
+        else {
+            val editor = preferences.edit()
+            editor.putString("interval_preference", "5000")
+            editor.apply()
+            LOCATION_REQUEST_INTERVAL = 5000L
+        }
 
         startWorkOut()
         setUpDatabase()
