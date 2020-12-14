@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startWorkout() {
         val intent = Intent(this, MapsActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, 1)
     }
 
     private fun openWorkouts() {

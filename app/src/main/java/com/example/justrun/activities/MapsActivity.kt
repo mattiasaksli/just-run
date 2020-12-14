@@ -1,6 +1,7 @@
 package com.example.justrun.activities
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,7 +9,10 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -43,6 +47,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private var previousTotalSteps = 0f
     private var currentSteps = 0
     private var running = false
+    private val polyLineOptions = PolylineOptions()
+
 
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
@@ -71,6 +77,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         super.onDestroy()
         stopService(Intent(this, ForegroundService::class.java))
         sensorManager?.unregisterListener(this)
+        mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
+        Log.i("maps", "destroyed")
+
+
 
     }
 
@@ -119,14 +129,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
         stopService(Intent(this, ForegroundService::class.java))
         sensorManager?.unregisterListener(this)
+        mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
 
         Log.i("workoutData", workoutData.toString())
         if (SettingsActivity.SWITCH_DATA) db.workoutDataDao().insert(workoutData)
 
-        val activityIntent = Intent(this, MainActivity::class.java)
-        startActivity(activityIntent)
+        val returnIntent = intent
+        returnIntent.putExtra("maps", "finished")
+        setResult(Activity.RESULT_OK, returnIntent)
         finish()
-        //sest muidu millegipärast jäi see activity käima
 
 
     }
@@ -174,7 +185,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     }
 
     private fun updateMapWithLocations() {
-        val polyLineOptions = PolylineOptions()
+
         mMap.clear()
         for (latLng in locationLatLngList) {
             mMap.addPolyline(polyLineOptions.add(latLng))
