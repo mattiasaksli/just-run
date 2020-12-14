@@ -143,8 +143,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         returnIntent.putExtra("maps", "finished")
         setResult(Activity.RESULT_OK, returnIntent)
         finish()
-
-
     }
 
     private fun calculateDistance(): Float {

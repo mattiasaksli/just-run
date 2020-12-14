@@ -1,13 +1,9 @@
 package com.example.justrun.activities
 
-import android.Manifest
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.Preference
 import androidx.preference.PreferenceManager
 import com.example.justrun.R
 import com.example.justrun.fragments.SettingsFragment
@@ -17,13 +13,15 @@ import kotlinx.android.synthetic.main.activity_preferences.*
 
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener, SharedPreferences.Editor {
 
+
     private lateinit var database : WorkoutDb
     private lateinit var preferences : SharedPreferences
 
     companion object {
         const val TAG = "SettingsActivity"
-        var SWITCH_DATA = false
+        var SWITCH_DATA = true
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferences)
@@ -32,7 +30,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
-        SWITCH_DATA = preferences.getBoolean("switch_data", false)
+        SWITCH_DATA = preferences.getBoolean("switch_data", true)
 
         button_back_preferences.setOnClickListener {
             finish()
@@ -66,7 +64,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
             val workouts = database.workoutDataDao().getAllWorkouts()
 
             if (workouts.isNotEmpty())
-                workouts.forEach{
+                workouts.forEach {
                     database.workoutDataDao().deleteWorkout(it)
                 }
 
