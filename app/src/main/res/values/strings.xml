@@ -20,6 +20,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="splash_screen_title">JOOKSKEM</string>
 
+    <string name="time_elapsed">Time elapsed</string>
     <string name="time_elapsed_s">Time elapsed: %1$d s</string>
     <string name="time_elapsed_m_s">Time elapsed: %1$d m %2$d s</string>
     <string name="time_elapsed_h_m_s">Time elapsed: %1$d h %2$d m %3$d s</string>
@@ -41,7 +42,7 @@
     <string name="button_start_new_workout">Start new workout</string>
     <string name="checkbox_clear_cache">clear_cache</string>
     <string name="checkbox_summary">Clear all data of past workouts</string>
-    <string name="checkbox_title">Clear cache</string>
+    <string name="checkbox_title">Clear data</string>
     <string name="distance_value_m">%1$d m</string>
     <string name="distance_value_km">%1$.2f km</string>
     <string name="header_date">Date</string>
