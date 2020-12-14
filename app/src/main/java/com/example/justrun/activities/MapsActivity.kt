@@ -9,10 +9,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Looper
+import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -57,6 +54,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private lateinit var workoutData: WorkoutData
     private lateinit var db: WorkoutDb
     private lateinit var timer: CountDownTimer
+    private lateinit var mainHandler: Handler
+
+    private val updateMapTask = object : Runnable {
+        override fun run() {
+            updateMapWithLocations()
+            mainHandler.postDelayed(this, 5000)
+        }
+    }
 
     companion object {
         val TAG: String = MapsActivity::class.java.name
@@ -71,6 +76,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         mapFragment.getMapAsync(this)
         startService(Intent(this, ForegroundService::class.java))
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        mainHandler = Handler(Looper.getMainLooper())
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         LOCATION_REQUEST_INTERVAL = preferences.all.getValue("interval_preference").toString().toLong()
@@ -80,6 +86,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         setUpLocationRequest()
         setUpLocationCallback()
         setUpOverlay()
+
     }
 
 
@@ -89,6 +96,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         sensorManager?.unregisterListener(this)
         mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
         timer.onFinish()
+        mainHandler.removeCallbacks(updateMapTask)
 
         Log.i(TAG, "Activity destroyed")
 
@@ -140,6 +148,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         sensorManager?.unregisterListener(this)
         mFusedLocationProviderClient.removeLocationUpdates(locationCallback);
         timer.onFinish()
+        mainHandler.removeCallbacks(updateMapTask)
 
         if (SettingsActivity.SWITCH_DATA) db.workoutDataDao().insert(workoutData)
         Log.i("settings value", SettingsActivity.SWITCH_DATA.toString())
@@ -155,7 +164,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         for (latLng in locationLatLngList) {
             if (previousLatLng != null) {
                 val temporaryDistance = previousLatLng.sphericalDistance(latLng)
-                if (temporaryDistance > 2) distance += temporaryDistance
+                if (temporaryDistance > 1) distance += temporaryDistance
             }
             previousLatLng = latLng
         }
@@ -165,6 +174,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private fun startWorkOut() {
         val startTime = System.currentTimeMillis()
         workoutData = WorkoutData(startTime)
+
     }
 
     private fun setUpLocationRequest() {
@@ -184,7 +194,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                     val locationLatLng = LatLng(location.latitude, location.longitude)
                     val bearing = location.bearing
                     locationLatLngList.add(locationLatLng)
-                    updateMapWithLocations()
                     if (locationLatLngList.size < 2) updateCameraPosition(locationLatLng, bearing)
                 }
             }
@@ -301,13 +310,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
 
@@ -316,6 +318,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             locationCallback,
             Looper.getMainLooper()
         )
+        mainHandler.post(updateMapTask)
     }
 
     private fun getLocationPermission() {
