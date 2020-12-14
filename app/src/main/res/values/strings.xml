@@ -38,7 +38,7 @@
     <string name="distance_value">%1$.2f km</string>
     <string name="checkbox_clear_cache">clear_cache</string>
     <string name="checkbox_summary">Clear all data of past workouts</string>
-    <string name="checkbox_title">Clear cache</string>
+    <string name="checkbox_title">Clear data</string>
     <string name="distance_value_m">%1$d m</string>
     <string name="distance_value_km">%1$.2f km</string>
     <string name="header_date">Date</string>

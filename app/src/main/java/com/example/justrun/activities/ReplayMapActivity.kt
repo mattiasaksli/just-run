@@ -32,7 +32,7 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.replay_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         val workoutId = intent.getIntExtra("workout_id", 0)
-        workoutId?.let { setUpDatabase(it.toString()) }
+        workoutId.let { setUpDatabase(it.toString()) }
 
         button_back_replay.setOnClickListener {
             finish()

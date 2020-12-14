@@ -18,20 +18,19 @@ import kotlinx.android.synthetic.main.activity_preferences.*
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener, SharedPreferences.Editor {
 
     private lateinit var database : WorkoutDb
+    private lateinit var preferences : SharedPreferences
 
     companion object {
         const val TAG = "SettingsActivity"
         var SWITCH_DATA = false
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preferences)
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        preferences.registerOnSharedPreferenceChangeListener(this)
-
         database = WorkoutDb.getInstance(this)
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         SWITCH_DATA = preferences.getBoolean("switch_data", false)
 
@@ -42,6 +41,18 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         supportFragmentManager.beginTransaction()
             .replace(R.id.settings_frame, SettingsFragment())
             .commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i(TAG, "Registering preference change listener")
+        preferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i(TAG, "Unregistering preference change listener")
+        preferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
