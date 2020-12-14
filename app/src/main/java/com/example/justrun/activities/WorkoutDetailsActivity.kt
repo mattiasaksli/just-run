@@ -37,7 +37,7 @@ class WorkoutDetailsActivity : AppCompatActivity() {
             tv_workout_end.text = convertLongToTime(endDatetime)
             tv_duration.text = formatTime(this)
             tv_distance.text = formatDistance(this)
-            tv_steps.text = workout.steps.toString()
+            tv_steps.text = getString(R.string.steps_with_value, workout.steps)
         }
 
         btn_map_activity.setOnClickListener {

@@ -138,6 +138,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
         Log.i("workoutData", workoutData.toString())
         if (SettingsActivity.SWITCH_DATA) db.workoutDataDao().insert(workoutData)
+        Log.i("settings value", SettingsActivity.SWITCH_DATA.toString())
         val returnIntent = intent
         returnIntent.putExtra("maps", "finished")
         setResult(Activity.RESULT_OK, returnIntent)

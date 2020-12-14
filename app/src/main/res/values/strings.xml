@@ -51,4 +51,6 @@
     <string name="back_arrow">back arrow</string>
     <string name="settings">settings</string>
     <string name="placeholder">placeholder</string>
+    <string name="workout_duration">Workout Duration</string>
+    <string name="until">until</string>
 </resources>
