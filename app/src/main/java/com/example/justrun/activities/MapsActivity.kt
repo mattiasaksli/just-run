@@ -17,6 +17,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import com.example.justrun.R
 import com.example.justrun.room.WorkoutData
 import com.example.justrun.room.WorkoutDb
@@ -39,7 +40,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     private var sensorManager: SensorManager? = null
     private val LOCATION_REQUEST_CODE = 101
-    private val LOCATION_REQUEST_INTERVAL: Long = 5000
     private var locationPermissionGranted = false
     private var locationLatLngList: MutableList<LatLng> = mutableListOf()
     private var counter: Int = 0
@@ -60,6 +60,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     companion object {
         val TAG: String = MapsActivity::class.java.name
+        var LOCATION_REQUEST_INTERVAL: Long = 5000L
     }
 
 
@@ -70,6 +71,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         mapFragment.getMapAsync(this)
         startService(Intent(this, ForegroundService::class.java))
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        LOCATION_REQUEST_INTERVAL = preferences.all.getValue("interval_preference").toString().toLong()
+
         startWorkOut()
         setUpDatabase()
         setUpLocationRequest()
@@ -165,6 +170,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private fun setUpLocationRequest() {
         locationRequest = LocationRequest.create()
         locationRequest.interval = LOCATION_REQUEST_INTERVAL
+        Log.i(TAG, "Location request interval: $LOCATION_REQUEST_INTERVAL")
     }
 
     private fun setUpLocationCallback() {

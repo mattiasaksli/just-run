@@ -17,4 +17,12 @@
         android:key="@string/checkbox_clear_cache"
         android:summary="@string/checkbox_summary"
         android:title="@string/checkbox_title"/>
+
+    <ListPreference
+        android:defaultValue="false"
+        android:entries="@array/pref_interval_option_labels"
+        android:entryValues="@array/pref_interval_option_values"
+        android:icon="@drawable/icon_location"
+        android:key="@string/interval_preference"
+        android:title="@string/interval_preference_title" />
 </PreferenceScreen>

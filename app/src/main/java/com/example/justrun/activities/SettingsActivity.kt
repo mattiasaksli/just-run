@@ -55,22 +55,37 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        val value = sharedPreferences?.getBoolean(key, false)
-        Log.i(TAG, "Preference $key changed to ${value.toString()}")
 
-        if (key == "switch_data") {
-            SWITCH_DATA = value!!
-        } else if (key == "clear_cache") {
-            val workouts = database.workoutDataDao().getAllWorkouts()
+        sharedPreferences?.all?.forEach{
+            if (it.key == key!!){
+                if (it.value?.javaClass?.equals(String::class.java) == true) {
+                    val value = sharedPreferences.getString(key, "5000")
+                    MapsActivity.LOCATION_REQUEST_INTERVAL = value!!.toLong()
 
-            if (workouts.isNotEmpty())
-                workouts.forEach {
-                    database.workoutDataDao().deleteWorkout(it)
+                    Log.i(TAG, "Preference $key changed to $value")
+
+
+                } else if (it.value?.javaClass?.equals(Boolean::class.java) == true) {
+                    val value = sharedPreferences.getBoolean(key, false)
+
+                    if (key == "switch_data") {
+                        SWITCH_DATA = value
+                    } else if (key == "clear_cache") {
+                        val workouts = database.workoutDataDao().getAllWorkouts()
+
+                        if (workouts.isNotEmpty())
+                            workouts.forEach {
+                                database.workoutDataDao().deleteWorkout(it)
+                            }
+
+                        val editor = sharedPreferences.edit()
+                        editor?.putBoolean(key, false)
+                        editor?.apply()
+                    }
+
+                    Log.i(TAG, "Preference $key changed to $value")
                 }
-
-            val editor = sharedPreferences?.edit()
-            editor?.putBoolean(key, false)
-            editor?.apply()
+            }
         }
     }
 
