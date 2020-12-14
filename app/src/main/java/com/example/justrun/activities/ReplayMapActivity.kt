@@ -111,19 +111,4 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
     }
-
-
-    private fun convertLongToDuration(duration: Long): String {
-        val seconds = duration / 1000 % 60
-        val minutes = duration / (1000 * 60) % 60
-        val hours = duration / (1000 * 60 * 60) % 24
-
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
-    }
-
-    private fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-        return format.format(date)
-    }
 }
