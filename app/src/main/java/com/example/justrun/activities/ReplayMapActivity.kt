@@ -68,7 +68,7 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun formatDistance(): String {
         val distance = workout.distance
         return if (distance <= 100) {
-            getString(R.string.distance_m, distance)
+            getString(R.string.distance_m, distance.toInt())
         } else {
             val distanceKilometers = distance.toDouble().div(1000)
             getString(R.string.distance_km, distanceKilometers)

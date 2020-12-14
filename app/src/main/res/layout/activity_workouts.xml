@@ -14,7 +14,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        android:background="@drawable/border"
         android:padding="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,8 +25,10 @@
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:background="@drawable/layout_bg"
+            android:backgroundTint="@android:color/holo_blue_dark"
             android:orientation="horizontal"
+            android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -39,7 +40,9 @@
                 android:layout_weight="1"
                 android:text="@string/header_date"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_header_distance"
@@ -48,7 +51,9 @@
                 android:layout_weight="1"
                 android:text="@string/header_distance"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                tools:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_header_steps"
@@ -57,7 +62,9 @@
                 android:layout_weight="1"
                 android:text="@string/header_steps"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -80,9 +87,9 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:backgroundTint="#D5D5D5"
+        android:layout_marginTop="50dp"
         android:background="@drawable/layout_bg"
+        android:backgroundTint="#D5D5D5"
         android:contentDescription="@string/back_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
