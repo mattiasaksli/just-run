@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.justrun.R
+import com.example.justrun.room.WorkoutData
 import com.example.justrun.room.WorkoutDb
 import kotlinx.android.synthetic.main.activity_workout_details.*
 import java.text.SimpleDateFormat
@@ -34,13 +35,8 @@ class WorkoutDetailsActivity : AppCompatActivity() {
         workout.apply {
             tv_workout_start.text = convertLongToTime(startDateTime)
             tv_workout_end.text = convertLongToTime(endDatetime)
-            tv_duration.text = convertLongToDuration(endDatetime - startDateTime)
-            tv_distance.text =
-                if (distance <= 100) {
-                    getString(R.string.distance_value_m, distance.toInt())
-                } else {
-                    getString(R.string.distance_value_km, distance.toDouble().div(1000))
-                }
+            tv_duration.text = formatTime(this)
+            tv_distance.text = formatDistance(this)
             tv_steps.text = workout.steps.toString()
         }
 
@@ -51,12 +47,40 @@ class WorkoutDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun convertLongToDuration(duration: Long): String {
-        val seconds = duration / 1000 % 60
-        val minutes = duration / (1000 * 60) % 60
-        val hours = duration / (1000 * 60 * 60) % 24
+    private fun formatDistance(workout: WorkoutData): String {
+        val distance = workout.distance
+        return if (distance <= 100) {
+            getString(R.string.distance_m, distance)
+        } else {
+            val distanceKilometers = distance.toDouble().div(1000)
+            getString(R.string.distance_km, distanceKilometers)
+        }
+    }
 
-        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    private fun formatTime(workout: WorkoutData): String {
+        val totalSeconds: Int = ((workout.endDatetime - workout.startDateTime) / 1000).toInt()
+
+        val seconds = totalSeconds % 60
+
+        when {
+            totalSeconds < 60 -> {
+                return getString(R.string.time_elapsed_s, seconds)
+            }
+            totalSeconds in 60..3599 -> {
+                val minutes = (totalSeconds / 60) % 60
+                return getString(R.string.time_elapsed_m_s, minutes, seconds)
+            }
+            totalSeconds in 3600..86400 -> {
+                val totalMinutes = totalSeconds / 60
+                val minutes = totalMinutes % 60
+                val hours = totalMinutes / 60
+
+                return getString(R.string.time_elapsed_h_m_s, hours, minutes, seconds)
+            }
+            else -> {
+                return getString(R.string.time_elapsed_s, totalSeconds % 84600)
+            }
+        }
     }
 
     private fun convertLongToTime(time: Long): String {

@@ -12,12 +12,10 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
-import com.google.maps.android.ktx.utils.sphericalDistance
 import kotlinx.android.synthetic.main.map_overlay.*
 import kotlinx.android.synthetic.main.replay_map_overlay.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.roundToInt
 
 class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -29,7 +27,8 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_replay_map)
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.replay_map) as SupportMapFragment
+        val mapFragment =
+            supportFragmentManager.findFragmentById(R.id.replay_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         val workoutId = intent.getIntExtra("workout_id", 0)
         workoutId?.let { setUpDatabase(it.toString()) }
@@ -43,11 +42,9 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         displayWorkoutOnMap()
-
     }
 
     private fun setUpDatabase(workoutId: String) {
-
         db = WorkoutDb.getInstance(this)
         workout = db.workoutDataDao().getWorkoutData(workoutId)
     }
@@ -62,31 +59,47 @@ class ReplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         updateCameraPosition(workoutLocations[0])
-        replay_distance_text.text = "Distance ran: " + calculateDistance(workoutLocations)
-        replay_time_text.text = "Time elapsed: " + convertLongToDuration(workout.endDatetime - workout.startDateTime)
-        replay_steps_text.text = "Steps: " + workout.steps
-
+        replay_distance_text.text = formatDistance()
+        replay_time_text.text = formatTime()
+        replay_steps_text.text = getString(R.string.steps_with_value, workout.steps)
     }
 
-    private fun calculateDistance(workoutLocations : List<LatLng>): String {
-        var distance = 0.0
-        var previousLatLng: LatLng? = null
-        for (latLng in workoutLocations) {
-            if (previousLatLng != null) {
-                val temporaryDistance = previousLatLng.sphericalDistance(latLng)
-                if (temporaryDistance > 2) distance += temporaryDistance
-            }
-            previousLatLng = latLng
-        }
-
+    private fun formatDistance(): String {
+        val distance = workout.distance
         return if (distance <= 100) {
-            "${distance.roundToInt()} m"
+            getString(R.string.distance_m, distance)
         } else {
-            val distanceKilometers = distance.div(1000)
-            "$distanceKilometers km"
+            val distanceKilometers = distance.toDouble().div(1000)
+            getString(R.string.distance_km, distanceKilometers)
         }
-
     }
+
+    private fun formatTime(): String {
+        val totalSeconds: Int = ((workout.endDatetime - workout.startDateTime) / 1000).toInt()
+
+        val seconds = totalSeconds % 60
+
+        when {
+            totalSeconds < 60 -> {
+                return getString(R.string.time_elapsed_s, seconds)
+            }
+            totalSeconds in 60..3599 -> {
+                val minutes = (totalSeconds / 60) % 60
+                return getString(R.string.time_elapsed_m_s, minutes, seconds)
+            }
+            totalSeconds in 3600..86400 -> {
+                val totalMinutes = totalSeconds / 60
+                val minutes = totalMinutes % 60
+                val hours = totalMinutes / 60
+
+                return getString(R.string.time_elapsed_h_m_s, hours, minutes, seconds)
+            }
+            else -> {
+                return getString(R.string.time_elapsed_s, totalSeconds % 84600)
+            }
+        }
+    }
+
     private fun updateCameraPosition(location: LatLng) {
         val cameraPosition = CameraPosition.Builder()
             .target(location) // Sets the center of the map to location user

@@ -38,7 +38,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private val LOCATION_REQUEST_INTERVAL: Long = 5000
     private var locationPermissionGranted = false
     private var locationLatLngList: MutableList<LatLng> = mutableListOf()
-    private var counter = 0
+    private var counter: Int = 0
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
     private var currentSteps = 0
@@ -115,7 +115,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         workoutData.distance = distance
         workoutData.endDatetime = finishTime
         workoutData.locations = locationLatLngList
-        workoutData.steps = currentSteps.toInt()
+        workoutData.steps = currentSteps
 
         stopService(Intent(this, ForegroundService::class.java))
         sensorManager?.unregisterListener(this)
@@ -187,7 +187,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private fun startTimeCounter() {
         object : CountDownTimer(10000000000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                updateOverLayTimer(counter)
+                updateOverLayTimer()
                 counter++
             }
 
@@ -199,33 +199,43 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     }
 
-    private fun updateOverLayTimer(counter: Int) {
-        if (counter < 60) {
-            val timeElapsed = counter
-            text_time.text = "Time elapsed: $timeElapsed s"
-        }
-        if (counter in 60..3599) {
-            val timeElapsed = counter / 60
-            text_time.text = "Time elapsed: $timeElapsed m"
-        }
-        if (counter in 3600..86400) {
-            val numberOfHours = (counter % 86400) / 3600
-            val numberOfMinutes = ((counter % 86400) % 3600) / 60
+    private fun updateOverLayTimer() {
+        val seconds = counter % 60
 
-            text_time.text = "Time elapsed: $numberOfHours h $numberOfMinutes m"
+        when {
+            counter < 60 -> {
+                text_time.text = getString(R.string.time_elapsed_s, seconds)
+            }
+            counter in 60..3599 -> {
+                val minutes = (counter / 60) % 60
+                text_time.text = getString(R.string.time_elapsed_m_s, minutes, seconds)
+            }
+            counter in 3600..86400 -> {
+                val totalMinutes = counter / 60
+                val minutes = totalMinutes % 60
+                val hours = totalMinutes / 60
+
+                text_time.text = getString(R.string.time_elapsed_h_m_s, hours, minutes, seconds)
+            }
+            else -> {
+                // If time elapsed is more than 24 hours, the counter resets to 0.
+                // We assume that no workout lasts more than 24 hours.
+                counter = 0
+                text_time.text = getString(R.string.time_elapsed_s, seconds)
+            }
         }
     }
 
     private fun updateOverLayDistance() {
         val distance = calculateDistance().roundToInt()
         if (distance <= 100) {
-            text_distance.text = "Distance ran: $distance m"
+            text_distance.text = getString(R.string.distance_m, distance)
         } else {
             val distanceKilometers = distance.toDouble().div(1000)
-            text_distance.text = "Distance ran: $distanceKilometers km"
+            text_distance.text = getString(R.string.distance_km, distanceKilometers)
         }
 
-        text_steps.text = "Steps: $currentSteps"
+        text_steps.text = getString(R.string.steps_with_value, currentSteps)
     }
 
     private fun updateCameraPosition(location: LatLng, bearing: Float) {
