@@ -173,7 +173,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 locationResult ?: return
                 for (location in locationResult.locations) {
                     Log.i(
-                        TAG,"Location: ${location.latitude} ${location.longitude}"
+                        TAG, "Location: ${location.latitude} ${location.longitude}"
                     )
                     val locationLatLng = LatLng(location.latitude, location.longitude)
                     val bearing = location.bearing
@@ -186,14 +186,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     }
 
     private fun updateMapWithLocations() {
-
         mMap.clear()
         for (latLng in locationLatLngList) {
             mMap.addPolyline(polyLineOptions.add(latLng))
         }
         updateOverLayDistance()
-
-
     }
 
     private fun startTimeCounter() {
@@ -209,8 +206,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             }
 
         }.start()
-
-
     }
 
     private fun updateOverLayTimer() {
@@ -271,12 +266,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         getStepsPermission()
         setLocationUI()
         startLocationUpdates()
-
     }
 
     private fun getStepsPermission() {
-
-
         if (ContextCompat.checkSelfPermission(
                 applicationContext,
                 Manifest.permission.ACTIVITY_RECOGNITION,
@@ -292,7 +284,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
                 )
             }
         }
-
     }
 
     private fun startLocationUpdates() {
@@ -322,7 +313,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     }
 
     private fun getLocationPermission() {
-
         if (ContextCompat.checkSelfPermission(
                 applicationContext,
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -371,8 +361,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
             running = true
         }
         currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
-
     }
-
-
 }
