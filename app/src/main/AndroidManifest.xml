@@ -32,7 +32,8 @@
         <activity
             android:name=".activities.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.SettingsActivity"
             android:label="Settings"

@@ -8,10 +8,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.os.Build
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Looper
+import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -73,6 +70,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     override fun onDestroy() {
         super.onDestroy()
         stopService(Intent(this, ForegroundService::class.java))
+        sensorManager?.unregisterListener(this)
+
     }
 
     override fun onPause() {
@@ -85,17 +84,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         super.onResume()
         Log.i("maps", "resumed")
         if (::mMap.isInitialized)  updateMapWithLocations()
-
         setUpStepSensor()
 
     }
+
+
+
 
     private fun setUpStepSensor() {
         val stepSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         if (stepSensor == null) {
             Log.e("stepsensor", "can't track steps")
         } else {
-            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_UI)
+            sensorManager?.registerListener(this, stepSensor, SensorManager.SENSOR_DELAY_FASTEST)
         }
     }
 
