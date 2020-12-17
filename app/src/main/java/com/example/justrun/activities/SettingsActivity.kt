@@ -56,21 +56,22 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
 
-        sharedPreferences?.all?.forEach{
+        sharedPreferences?.all?.forEach{ it ->
             if (it.key == key!!){
                 if (it.value?.javaClass?.equals(String::class.java) == true) {
                     val value = sharedPreferences.getString(key, "5000")
                     MapsActivity.LOCATION_REQUEST_INTERVAL = value!!.toLong()
 
                     Log.i(TAG, "Preference $key changed to $value")
+                    return
 
-
-                } else if (it.value?.javaClass?.equals(Boolean::class.java) == true) {
+                } else {
                     val value = sharedPreferences.getBoolean(key, false)
 
                     if (key == "switch_data") {
                         SWITCH_DATA = value
                     } else if (key == "clear_cache") {
+                        Log.i(TAG, "clear_cache")
                         val workouts = database.workoutDataDao().getAllWorkouts()
 
                         if (workouts.isNotEmpty())
