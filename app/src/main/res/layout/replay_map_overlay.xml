@@ -23,6 +23,7 @@
         android:layout_margin="@dimen/margin_fat"
         android:layout_marginBottom="@dimen/margin_thick"
         android:background="@drawable/layout_bg"
+        android:backgroundTint="@color/textBg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -34,6 +35,7 @@
             android:layout_marginStart="@dimen/margin_thick"
             android:layout_marginTop="@dimen/padding_medium"
             android:text="@string/time_elapsed_h_m_s"
+            android:textColor="@color/text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/replay_distance_text" />
 
@@ -45,6 +47,7 @@
             android:layout_marginTop="@dimen/padding_medium"
             android:layout_marginBottom="@dimen/margin_fat"
             android:text="@string/steps_with_value"
+            android:textColor="@color/text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/replay_time_text" />
@@ -56,6 +59,7 @@
             android:layout_marginStart="@dimen/margin_thick"
             android:layout_marginTop="@dimen/margin_fat"
             android:text="@string/distance_km"
+            android:textColor="@color/text"
             android:textSize="@dimen/overlay_text_big"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

@@ -5,8 +5,8 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="text">#1B1A1A</color>
+    <color name="text">#F1F1F1</color>
     <color name="textAlt">#ECE5E5</color>
-    <color name="textBg">#E3E3E3</color>
-    <color name="navigation_bg">#BCBCBC</color>
+    <color name="textBg">#353535</color>
+    <color name="navigation_bg">#939393</color>
 </resources>

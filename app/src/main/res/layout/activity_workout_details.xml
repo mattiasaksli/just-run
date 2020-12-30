@@ -50,15 +50,15 @@
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/padding_medium"
                 android:text="@string/placeholder"
-                android:textColor="@color/white"
+                android:textColor="@color/textAlt"
                 android:textSize="@dimen/overlay_text_whoa" />
 
             <TextView
-                android:id="@+id/minus"
+                android:id="@+id/to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/until"
-                android:textColor="@color/white"
+                android:textColor="@color/textAlt"
                 android:textSize="@dimen/overlay_text_large"
                 android:textStyle="italic" />
 
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="@dimen/padding_medium"
                 android:text="@string/placeholder"
-                android:textColor="@color/white"
+                android:textColor="@color/textAlt"
                 android:textSize="@dimen/overlay_text_whoa" />
 
         </LinearLayout>
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_medium"
             android:text="@string/placeholder"
-            android:textColor="@color/white"
+            android:textColor="@color/textAlt"
             android:textSize="@dimen/overlay_text_large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

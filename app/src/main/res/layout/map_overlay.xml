@@ -11,6 +11,7 @@
         android:layout_marginStart="@dimen/toolbar_horizontal_margin"
         android:layout_marginTop="@dimen/toolbar_vertical_margin"
         android:background="@drawable/layout_bg"
+        android:backgroundTint="@color/textBg"
         android:minWidth="@dimen/overlay_width"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,6 +22,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_light"
             android:text="@string/header_distance"
+            android:textColor="@color/text"
             android:textSize="@dimen/overlay_text_big"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +34,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_light"
             android:text="@string/time_elapsed"
+            android:textColor="@color/text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_distance" />
 
@@ -41,6 +44,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_light"
             android:text="@string/header_steps"
+            android:textColor="@color/text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_time" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -52,7 +56,7 @@
         android:layout_marginStart="@dimen/toolbar_horizontal_margin"
         android:backgroundTint="@android:color/holo_blue_dark"
         android:text="@string/finish_workout"
-        android:textColor="@color/white"
+        android:textColor="@color/textAlt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/overlaySquare" />
 </androidx.constraintlayout.widget.ConstraintLayout>
