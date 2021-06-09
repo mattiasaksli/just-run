@@ -2,14 +2,14 @@
 <resources>
     <!-- Label ordering must match values -->
     <array name="pref_interval_option_labels">
+        <item>@string/pref_interval_label_1</item>
         <item>@string/pref_interval_label_2</item>
         <item>@string/pref_interval_label_5</item>
-        <item>@string/pref_interval_label_10</item>
     </array>
 
     <array name="pref_interval_option_values">
+        <item>@string/pref_interval_value_1</item>
         <item>@string/pref_interval_value_2</item>
         <item>@string/pref_interval_value_5</item>
-        <item>@string/pref_interval_value_10</item>
     </array>
 </resources>

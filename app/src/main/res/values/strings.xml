@@ -53,12 +53,12 @@
     <string name="placeholder">placeholder</string>
     <string name="workout_duration">Workout Duration</string>
     <string name="until">to</string>
+    <string name="pref_interval_label_1">1 seconds</string>
     <string name="pref_interval_label_2">2 seconds</string>
     <string name="pref_interval_label_5">5 seconds</string>
-    <string name="pref_interval_label_10">10 seconds</string>
+    <string name="pref_interval_value_1">1000</string>
     <string name="pref_interval_value_2">2000</string>
     <string name="pref_interval_value_5">5000</string>
-    <string name="pref_interval_value_10">10000</string>
     <string name="interval_preference">interval_preference</string>
     <string name="interval_preference_title">Location update interval</string>
 </resources>

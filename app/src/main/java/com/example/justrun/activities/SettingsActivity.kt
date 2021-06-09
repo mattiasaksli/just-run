@@ -59,7 +59,7 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         sharedPreferences?.all?.forEach{ it ->
             if (it.key == key!!){
                 if (it.value?.javaClass?.equals(String::class.java) == true) {
-                    val value = sharedPreferences.getString(key, "5000")
+                    val value = sharedPreferences.getString(key, "1000")
                     MapsActivity.LOCATION_REQUEST_INTERVAL = value!!.toLong()
 
                     Log.i(TAG, "Preference $key changed to $value")

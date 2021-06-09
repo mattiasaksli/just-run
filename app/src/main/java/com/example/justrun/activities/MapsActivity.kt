@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.maps.android.ktx.utils.sphericalDistance
 import kotlinx.android.synthetic.main.map_overlay.*
@@ -39,6 +40,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private val LOCATION_REQUEST_CODE = 101
     private var locationPermissionGranted = false
     private var locationLatLngList: MutableList<LatLng> = mutableListOf()
+    private var latLngBuffer: MutableList<LatLng> = mutableListOf()
+    private var totalDistance = 0
     private var counter: Int = 0
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
@@ -59,13 +62,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     private val updateMapTask = object : Runnable {
         override fun run() {
             updateMapWithLocations()
-            mainHandler.postDelayed(this, 5000)
+            mainHandler.postDelayed(this, 4000)
         }
     }
 
     companion object {
         val TAG: String = MapsActivity::class.java.name
-        var LOCATION_REQUEST_INTERVAL: Long = 5000L
+        var LOCATION_REQUEST_INTERVAL: Long = 1000L
     }
 
 
@@ -79,13 +82,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         mainHandler = Handler(Looper.getMainLooper())
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        if (preferences.contains("interval_preference"))
-            LOCATION_REQUEST_INTERVAL = preferences.all.getValue("interval_preference").toString().toLong()
+        LOCATION_REQUEST_INTERVAL = if (preferences.contains("interval_preference"))
+            preferences.all.getValue("interval_preference").toString().toLong()
         else {
             val editor = preferences.edit()
-            editor.putString("interval_preference", "5000")
+            editor.putString("interval_preference", "1000")
             editor.apply()
-            LOCATION_REQUEST_INTERVAL = 5000L
+            1000L
         }
 
         startWorkOut()
@@ -93,7 +96,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         setUpLocationRequest()
         setUpLocationCallback()
         setUpOverlay()
-
     }
 
 
@@ -144,7 +146,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
 
     private fun finishWorkout() {
         val finishTime = System.currentTimeMillis()
-        val distance = calculateDistance()
+        val distance = totalDistance + calculateLastMovedDistance()
 
         workoutData.distance = distance
         workoutData.endDatetime = finishTime
@@ -165,17 +167,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         finish()
     }
 
-    private fun calculateDistance(): Float {
-        var distance = 0.0
-        var previousLatLng: LatLng? = null
-        for (latLng in locationLatLngList) {
-            if (previousLatLng != null) {
-                val temporaryDistance = previousLatLng.sphericalDistance(latLng)
-                if (temporaryDistance > 1) distance += temporaryDistance
-            }
-            previousLatLng = latLng
-        }
-        return distance.toFloat()
+    private fun calculateLastMovedDistance(): Float {
+        val locationsSize = locationLatLngList.size
+        val previousLatLng: LatLng = locationLatLngList[locationsSize - 2]
+        val currentLatLng: LatLng = locationLatLngList[locationsSize - 1]
+
+        return previousLatLng.sphericalDistance(currentLatLng).toFloat()
     }
 
     private fun startWorkOut() {
@@ -194,24 +191,39 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return
-                for (location in locationResult.locations) {
-                    Log.i(
-                        TAG, "Location: ${location.latitude} ${location.longitude}"
-                    )
-                    val locationLatLng = LatLng(location.latitude, location.longitude)
-                    val bearing = location.bearing
-                    locationLatLngList.add(locationLatLng)
-                    if (locationLatLngList.size < 2) updateCameraPosition(locationLatLng, bearing)
+
+                val location = locationResult.lastLocation
+                Log.i(TAG, "Location: ${location.latitude} ${location.longitude}")
+
+                val locationLatLng = LatLng(location.latitude, location.longitude)
+                val bearing = location.bearing
+
+                latLngBuffer.add(locationLatLng)
+                if (latLngBuffer.size >= 3) {
+                    val latLngBounds = LatLngBounds.builder()
+                    for (latLng in latLngBuffer) {
+                        latLngBounds.include(latLng)
+                    }
+                    locationLatLngList.add(latLngBounds.build().center)
+
+                    latLngBuffer.clear()
                 }
+
+                if (locationLatLngList.size < 2) updateCameraPosition(locationLatLng, bearing)
             }
         }
     }
 
     private fun updateMapWithLocations() {
-        mMap.clear()
-        polyLineOptions.addAll(locationLatLngList)
-        mMap.addPolyline(polyLineOptions)
-        updateOverLayDistance()
+        val locationsSize = locationLatLngList.size
+        if (locationsSize > 1) {
+            polyLineOptions.add(
+                locationLatLngList[locationsSize - 1],
+                locationLatLngList[locationsSize - 2]
+            )
+            mMap.addPolyline(polyLineOptions)
+            updateOverLayDistance()
+        }
     }
 
     private fun startTimeCounter() {
@@ -257,11 +269,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, SensorEventListene
     }
 
     private fun updateOverLayDistance() {
-        val distance = calculateDistance().roundToInt()
-        if (distance <= 100) {
-            text_distance.text = getString(R.string.distance_m, distance)
+        totalDistance += calculateLastMovedDistance().roundToInt()
+        if (totalDistance <= 100) {
+            text_distance.text = getString(R.string.distance_m, totalDistance)
         } else {
-            val distanceKilometers = distance.toDouble().div(1000)
+            val distanceKilometers = totalDistance.toDouble().div(1000)
             text_distance.text = getString(R.string.distance_km, distanceKilometers)
         }
 
